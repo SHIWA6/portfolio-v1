@@ -1,0 +1,5 @@
+"use client";
+
+export default function Description() {
+  return <div>Loading...</div>;
+}
