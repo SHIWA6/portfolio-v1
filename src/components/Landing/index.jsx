@@ -205,7 +205,7 @@ export default function Home() {
                   <DynamicText 
                     text="Hi👋 , I'm SHIVA PANDEY, FullStack Dev." 
                     delay={0.9}
-                    className="text-white py-7"
+                    className="text-white py-20"
                   />
                 </h2>
                 <motion.div 
