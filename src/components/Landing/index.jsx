@@ -203,7 +203,7 @@ export default function Home() {
               >
                 <h2 className="text-2xl md:text-3xl font-light text-cyan-300/90 mb-3">
                   <DynamicText 
-                    text="Hi👋 , I'm SHIVA PANDEY" 
+                    text="Hi👋 , I'm SHIVA PANDEY, FullStack Dev." 
                     delay={0.9}
                     className="text-white py-7"
                   />
