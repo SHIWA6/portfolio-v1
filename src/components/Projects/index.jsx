@@ -25,7 +25,7 @@ const projects = [
        "A modern, interactive portfolio website showcasing projects with dynamic animations and responsive design.",
      src: "/images/PORTFOLIO_WEB.png",
      color: "#EFE8D3",
-     link: "https://kanishk-chi.vercel.app/",
+     link: "https://portfolio-v1-dusky-beta.vercel.app/",
     techStack: [ "NextJS, TailwindCss"],
    },
 
