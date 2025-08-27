@@ -17,7 +17,7 @@ export default function RootLayout ({ children }) {
         <html lang="en">
             <body className={inter.className}>
 
-                <Header> <Script src= "//embed.typeform.com/next/embed.js"></Script> </Header>
+                
           {children}
             </body>
         </html>

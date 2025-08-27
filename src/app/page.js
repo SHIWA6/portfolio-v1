@@ -1,4 +1,5 @@
 "use client";
+import Script from "next/script";
 
 import styles from "./page.module.scss";
 import { useEffect, useState } from "react";
@@ -10,6 +11,7 @@ import Description from "../components/Description";
 import Skillparallax from "../components/Skill-parallax";
 import SlidingImages from "../components/SlidingImages";
 import Contact from "../components/Contact";
+import Header from "../components/Header"
 
 export default function Home() {
   const [isLoading, setIsloading] = useState(true);
@@ -34,6 +36,10 @@ export default function Home() {
 
 
   return (<main className={styles.main}>
+
+
+    <Header></Header>
+
       <AnimatePresence mode="wait">
         {isLoading && <Preloader />}
       </AnimatePresence>
