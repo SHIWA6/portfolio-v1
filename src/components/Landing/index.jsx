@@ -15,7 +15,8 @@ export default function Index() {
       {/* 🔵 background div */}
       <div className="absolute inset-0">
         {/* यहाँ वही gradient/blur background code डालो जो पहले use किया था */}
-        <div className="w-full h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 blur-3xl opacity-70" />
+        <div className="w-full h-full bg-gradient-to- [background-color: #0D0C10;
+] via-blue-500 to-purple-600 blur-3xl opacity-70" />
       </div>
 
       {/* 🟢 Profile card */}

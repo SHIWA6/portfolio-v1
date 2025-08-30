@@ -20,7 +20,7 @@ export default function Index() {
   const description = useRef(null);
   const isInView = useInView(description);
 
-  return (
+  return ( <> 
     <div ref={description} className={styles.description} id="about">
       <Script
         async
@@ -47,6 +47,6 @@ export default function Index() {
         </p>
         <div data-scroll data-scroll-speed={0.1}></div>
       </div>
-    </div>
+    </div> </>
   );
 }

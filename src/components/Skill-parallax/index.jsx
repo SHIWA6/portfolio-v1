@@ -25,9 +25,7 @@ export default function SkillsSection() {
   return (
     <section className={`${styles.skills} py-16`}>
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-white mb-12">
-          My Skills
-        </h2>
+       
 
         <div className="overflow-hidden" ref={container}>
           <Slide direction="left" left="-120%" progress={scrollYProgress} />
