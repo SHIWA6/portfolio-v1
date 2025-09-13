@@ -12,6 +12,7 @@ import Skillparallax from "../components/Skill-parallax";
 import SlidingImages from "../components/SlidingImages";
 import Contact from "../components/Contact";
 import Header from "../components/Header"
+import LocalTime from "@/utils/Localtimes";
 
 export default function Home() {
   const [isLoading, setIsloading] = useState(true);
@@ -37,13 +38,21 @@ export default function Home() {
 
   return (<main className={styles.main}>
 
+    <section className="text-white mt-0 bg-black"> 
+      <LocalTime></LocalTime>
+    </section>
 
-    <Header></Header>
+<section className="bg-black mt-0">
+    <Header></Header> </section>
 
       <AnimatePresence mode="wait">
         {isLoading && <Preloader />}
       </AnimatePresence>
-      <Landing />
+     <section className="bg-black mt-0">
+            
+             <Landing />
+
+     </section>
       <Description />
       <Projects />
       <Skillparallax />

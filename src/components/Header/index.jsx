@@ -45,7 +45,7 @@ export default function Index() {
   };
 
   return (
-    <>
+    <div className={styles.main}>
       <div ref={header} className={styles.header}>
         <div className={styles.logo}></div>
         <div className={styles.nav}>
@@ -87,6 +87,6 @@ export default function Index() {
       <AnimatePresence mode="wait">
         {isActive && <Nav onNavClick={handleNavClick} />}
       </AnimatePresence>
-    </>
+    </div>
   );
 }

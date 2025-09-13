@@ -9,6 +9,8 @@
     font-weight: 300;
     box-sizing: border-box;
     align-items: center;
+
+   
     .marq{
         position: absolute;
         display: flex;
@@ -74,9 +76,21 @@
     }
     .nav{
         display: flex;
+        justify-content: center;
+        gap:1.5rem;
+        position: absolute;
+        margin-top: 80px;
+        top: 20px;
+        left:50%;
+        transform: translateX(-50%);
+        transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+
         align-items: center;
         font-weight: 500;
-        padding: 30px;
+        padding: 6px 16px;
+        background-color: rgb(53, 52, 52);
+        border-radius: 50px;
+        outline: 2px solid white;
         .el{
             color: white;
             display: flex;
