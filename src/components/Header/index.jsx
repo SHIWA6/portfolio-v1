@@ -71,7 +71,7 @@ export default function Index() {
         <div className={styles.marq}></div>
       </div>
       <div ref={button} className={styles.headerButtonContainer}>
-        <Rounded
+      {/*  <Rounded
           onClick={() => {
             setIsActive(!isActive);
           }}
@@ -82,7 +82,7 @@ export default function Index() {
               isActive ? styles.burgerActive : ""
             }`}
           ></div>
-        </Rounded>
+        </Rounded> */}
       </div>
       <AnimatePresence mode="wait">
         {isActive && <Nav onNavClick={handleNavClick} />}

@@ -1,8 +1,13 @@
+.main{
+    background-color: black;
+}
 .header{
-    position: absolute;
+    position: relative;
     display: flex;
     z-index: 1;
+    background-color: black;
     top: 0;
+    margin-top: 0;
     color: white;
     justify-content: space-between;
     width: 100%;
@@ -79,8 +84,8 @@
         justify-content: center;
         gap:1.5rem;
         position: absolute;
-        margin-top: 80px;
-        top: 20px;
+        margin-top: 50px;
+        top: px;
         left:50%;
         transform: translateX(-50%);
         transition: cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -88,9 +93,9 @@
         align-items: center;
         font-weight: 500;
         padding: 6px 16px;
-        background-color: rgb(53, 52, 52);
+        background-color: black;
         border-radius: 50px;
-        outline: 2px solid white;
+        outline: 0.005px solid rgb(109, 94, 94);
         .el{
             color: white;
             display: flex;
@@ -145,7 +150,7 @@
     
     .burger{
         width: 100%;
-        position: relative;
+        position: fixed;
         z-index: 1;
         &::after, &::before{
             content: "";
@@ -156,6 +161,7 @@
             background-color: white;
             position: relative;
             transition: transform 0.3s;
+            
         }
     
         &::after{

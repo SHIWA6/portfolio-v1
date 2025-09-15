@@ -23,7 +23,7 @@ const LocalTime = () => {
   }, []);
 
   return (
-    <div className={`flex gap-2 items-center text-[#00FFD1]/65 mt-2 ml-3 ${space_mono.className} font-medium`}>
+    <div className={`flex gap-2 items-center text-[#00FFD1]/65 py-4 px-4 ${space_mono.className} font-medium`}>
       <a 
         href="https://www.google.com/search?q=time" 
         target="_blank" 

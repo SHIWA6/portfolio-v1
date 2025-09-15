@@ -43,12 +43,12 @@ export default function Home() {
     </section>
 
 <section className="bg-black mt-0">
-    <Header></Header> </section>
+    <Header ></Header> </section>
 
       <AnimatePresence mode="wait">
         {isLoading && <Preloader />}
       </AnimatePresence>
-     <section className="bg-black mt-0">
+     <section className=" mt-0 bg-black">
             
              <Landing />
 
