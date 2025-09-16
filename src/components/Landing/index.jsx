@@ -73,7 +73,7 @@ const getElementPosition = (elementRef) => {
   const spotlightPosition = getElementPosition(currentSection.ref);
 
   return (
-    <div className="flex bg-black items-center justify-center min-h-screen   p-4">
+    <div className="flex bg-black items-center justify-center min-h-screen p-4 sm:mt-5">
       <motion.div
         ref={cardRef}
         initial={{ opacity: 0, y: 50 }}
