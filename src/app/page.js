@@ -37,22 +37,20 @@ export default function Home() {
 
 
   return (<main className={styles.main}>
+  <section className=" mt-0 bg-black text-white">
+            
+           
 
-    <section className="text-white mt-0 bg-black"> 
+  
       <LocalTime></LocalTime>
-    </section>
-
-<section className="bg-black mt-0">
-    <Header ></Header> </section>
-
+      <main className="mb-10 sm:mb-10">
+      <Header ></Header></main>
+        <Landing />
+   </section>
       <AnimatePresence mode="wait">
         {isLoading && <Preloader />}
       </AnimatePresence>
-     <section className=" mt-0 bg-black">
-            
-             <Landing />
-
-     </section>
+   
       <Description />
       <Projects />
       <Skillparallax />

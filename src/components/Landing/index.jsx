@@ -73,7 +73,7 @@ const getElementPosition = (elementRef) => {
   const spotlightPosition = getElementPosition(currentSection.ref);
 
   return (
-    <div className="flex bg-black items-center justify-center min-h-screen p-4 sm:mt-5">
+    <div className="flex bg-black items-center justify-center min-h-screen p-4 ">
       <motion.div
         ref={cardRef}
         initial={{ opacity: 0, y: 50 }}
@@ -81,7 +81,7 @@ const getElementPosition = (elementRef) => {
         transition={{ duration: 1, ease: "easeOut" }}
         className="relative w-full max-w-4xl mx-auto bg-black backdrop-blur-xl border border-white-500/20 rounded-3xl p-8  overflow-hidden shadow-2xl"
       >
-        <div className="fixed top-4 right-10 text-white"> <Timelocal></Timelocal></div>
+        <div className="fixed top-8 right-10 text-white"> <Timelocal></Timelocal></div>
         {/* Animated Spotlight/Scanner */}
         <motion.div
           key={activeSection}
