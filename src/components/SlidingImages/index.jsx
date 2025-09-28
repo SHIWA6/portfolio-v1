@@ -8,10 +8,7 @@ const slider1 = [
     color: "#e3e5e7",
     src: "/images/1.jpg",
   },
-  {
-    color: "#d6d7dc",
-    src: "/images/PORTFOLIO_WEB.png",
-  },
+  
   {
     color: "#e3e3e3",
     src: "/images/Screenshot 2025-08-28 012809.png",
