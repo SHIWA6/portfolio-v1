@@ -9,7 +9,14 @@ import Rounded from "../../common/RoundedButton";
 import Script from "next/script";
 
 const projects = [
-  {
+ { title: "EDGE-AI",
+  description: "A voice assistant powered by AI, created with NEXT.js and the Gemini API, offering 98% precision in speech recognition and a response time of only 1.5 seconds."
+  , src: "/images/Screenshot 2025-09-28 150550.png",
+  color: "#8C8C8C",
+  link: "https://portfolio-v1-dusky-beta.vercel.app/",
+  techStack: ["NextJs, TailwindCss, NodeJS, ExpressJS, GeminiAPI"]
+
+ }, {
     title: "Stakelytics",
     description:
       "A feature-rich React.js and Tailwind CSS application focused on delivering interactive game mechanics like Mines etc,"
