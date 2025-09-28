@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, motion, color } from "framer-motion";
 import styles from "./style.module.scss";
 import Image from "next/image";
 
@@ -39,6 +39,10 @@ const slider2 = [
     color: "#e1dad6",
     src: "/images/2.jpg",
   },
+  {
+    color: "#e1dad6",
+    src: "/images/Screenshot 2025-09-28 150550.png"
+  }
 ];
 
 export default function Index() {
