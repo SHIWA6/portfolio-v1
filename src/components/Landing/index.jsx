@@ -1,5 +1,6 @@
 "use client";
 import me from "../Header/reall.jpeg"
+import LightRays from "./LightRays";
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -74,6 +75,11 @@ const getElementPosition = (elementRef) => {
 
   return (
     <div className="flex bg-black items-center justify-center min-h-screen p-4 ">
+
+    {/* Background Light Rays */}
+      
+
+
       <motion.div
         ref={cardRef}
         initial={{ opacity: 0, y: 50 }}
@@ -81,7 +87,7 @@ const getElementPosition = (elementRef) => {
         transition={{ duration: 1, ease: "easeOut" }}
         className="relative w-full max-w-4xl mx-auto bg-black backdrop-blur-xl border border-white-500/20 rounded-3xl p-8  overflow-hidden shadow-2xl"
       >
-        <div className="fixed top-8 right-10 text-white"> <Timelocal></Timelocal></div>
+        <div className="fixed top-8 right-10 text-white sm:block"> <Timelocal></Timelocal></div>
         {/* Animated Spotlight/Scanner */}
         <motion.div
           key={activeSection}
@@ -128,6 +134,23 @@ const getElementPosition = (elementRef) => {
 
         {/* Corner Accents */}
         <div className="absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-cyan-400/60 rounded-tl-lg" />
+
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
+        <LightRays
+          raysOrigin="center"
+          raysColor="#00ffff"
+          raysSpeed={2}
+          lightSpread={1}
+          rayLength={2}
+          followMouse={false}
+          mouseInfluence={0}
+          noiseAmount={0.05}
+          distortion={0.02}
+          className="w-full h-full"
+        />
+      </div>    
+           
+
         <div className="absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-cyan-400/60 rounded-tr-lg" />
         <div className="absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-cyan-400/60 rounded-bl-lg" />
         <div className="absolute bottom-4 right-4 w-6 h-6 border-r-2 border-b-2 border-cyan-400/60 rounded-br-lg" />
@@ -143,6 +166,9 @@ const getElementPosition = (elementRef) => {
             className="flex-shrink-0"
           >
             <div  className="relative w-32 h-32 rounded-2xl overflow-hidden ring-2 ring-cyan-500/30 bg-gradient-to-br from-cyan-500/20 to-purple-500/20">
+
+              
+
               <Image ref={profileRef}
                 src={me}
                 alt="Profile"
