@@ -13,7 +13,7 @@ const projects = [
   description: "A voice assistant powered by AI, created with NEXT.js and the Gemini API, offering 98% precision in speech recognition and a response time of only 1.5 seconds."
   , src: "/images/Screenshot 2025-09-28 150550.png",
   color: "#8C8C8C",
-  link: "https://portfolio-v1-dusky-beta.vercel.app/",
+  link: "https://edge-ai-rho.vercel.app/",
   techStack: ["NextJs, TailwindCss, NodeJS, ExpressJS, GeminiAPI"]
 
  }, {
