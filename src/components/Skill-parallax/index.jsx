@@ -1,8 +1,8 @@
 "use client";
 
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, motion, useReducedMotion } from "framer-motion";
 import Lenis from "lenis";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import styles from "./style.module.scss";
 
 export default function SkillsSection() {
@@ -14,12 +14,42 @@ export default function SkillsSection() {
   });
 
   useEffect(() => {
+    // Init Lenis and start a single RAF loop. Clean up on unmount to avoid
+    // runaway RAFs which cause CPU spikes on mobile.
+    if (typeof window === "undefined") return;
     const lenis = new Lenis();
-    const raf = (time) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    let rafId = null;
+    const loop = (time) => {
+      try {
+        lenis.raf(time);
+      } catch (e) {
+        // Defensive: Lenis may throw if destroyed; ignore and stop loop
+      }
+      rafId = requestAnimationFrame(loop);
     };
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(loop);
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      // Try to gracefully destroy Lenis instance if API available
+      try {
+        if (typeof lenis.destroy === "function") lenis.destroy();
+      } catch (e) {}
+    };
+  }, []);
+
+  // Detect mobile screens efficiently
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mql = window.matchMedia('(max-width: 767px)');
+    const onChange = (e) => setIsMobile(e.matches);
+    setIsMobile(mql.matches);
+    if (mql.addEventListener) mql.addEventListener('change', onChange);
+    else mql.addListener(onChange);
+    return () => {
+      if (mql.removeEventListener) mql.removeEventListener('change', onChange);
+      else mql.removeListener(onChange);
+    };
   }, []);
 
   return (
@@ -28,22 +58,25 @@ export default function SkillsSection() {
        
 
         <div className="overflow-hidden" ref={container}>
-          <Slide direction="left" left="-120%" progress={scrollYProgress} />
-          <Slide direction="right" left="-25%" progress={scrollYProgress} />
-          <Slide direction="left" left="-75%" progress={scrollYProgress} />
+          <Slide direction="left" left="-120%" progress={scrollYProgress} isMobile={isMobile} />
+          <Slide direction="right" left="-25%" progress={scrollYProgress} isMobile={isMobile} />
+          <Slide direction="left" left="-75%" progress={scrollYProgress} isMobile={isMobile} />
         </div>
       </div>
     </section>
   );
 }
 
-const Slide = ({ direction, left, progress }) => {
+const Slide = ({ direction, left, progress, isMobile }) => {
+  const shouldReduce = useReducedMotion();
   const dirMultiplier = direction === "left" ? -1 : 1;
-  const translateX = useTransform(progress, [0, 1], [200 * dirMultiplier, -200 * dirMultiplier]);
+  // Reduce the translation intensity on mobile for better performance
+  const intensity = isMobile ? 80 : 200;
+  const translateX = useTransform(progress, [0, 1], [intensity * dirMultiplier, -intensity * dirMultiplier]);
 
   return (
     <motion.div
-      style={{ x: translateX, left }}
+      style={{ x: shouldReduce ? 0 : translateX, left }}
       className="relative flex whitespace-nowrap w-max overflow-visible py-6"
     >
       <Phrase />
@@ -68,16 +101,21 @@ const logos = [
   {name: "Python", id: "python"}
 ];
 
+
+// Memoize Phrase so it doesn't re-render unnecessarily
 const Phrase = () => {
+  const items = useMemo(() => logos, []);
   return (
     <div className="flex flex-row gap-8 items-center px-5 min-w-max">
-      {logos.map((logo, index) => (
+      {items.map((logo, index) => (
         <div key={index} className="relative group cursor-pointer">
           <img
             src={`https://readme-components.vercel.app/api?component=logo&logo=${logo.id}&fill=linear-gradient(to%20right,%23ff512f,%23dd2476)&animation=spin`}
             alt={logo.name}
             height="70"
-            className="h-[70px]"
+            loading="lazy"
+            decoding="async"
+            className="h-[70px] w-auto"
           />
           <span className="absolute bottom-[-2rem] left-1/2 -translate-x-1/2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-all whitespace-nowrap">
             {logo.name}

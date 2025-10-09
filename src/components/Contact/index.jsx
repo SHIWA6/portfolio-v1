@@ -7,6 +7,7 @@ import Magnetic from "../../common/Magnetic";
 import { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
 import Script from "next/script";
+import me from "../Header/reall.jpg"
 
 export default function Index() {
   const container = useRef(null);
@@ -48,7 +49,7 @@ export default function Index() {
         <div className={styles.title}>
           <span>
             <div className={styles.imageContainer}>
-              <Image fill={true} alt={"image"} src={`/images/generated-image-portrait.png`} />
+              <Image fill={true} alt={"image"} src={me} />
             </div>
             <div>
               <h2>Let&apos;s work</h2>

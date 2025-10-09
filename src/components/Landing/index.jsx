@@ -1,12 +1,13 @@
 "use client";
-import me from "../Header/reall.jpeg"
+import me from "../Header/reall.jpg"
 import LightRays from "./LightRays";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, useMemo, useCallback, useLayoutEffect } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import Timelocal from "@/utils/Timelocal";
-import { FaGithub, FaTwitter, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaTwitter, FaEnvelope, FaLinkedin } from 'react-icons/fa';
+import { SiLeetcode } from "react-icons/si";
 
 const FuturisticIntroCard = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -21,57 +22,91 @@ const FuturisticIntroCard = () => {
   const githubRef = useRef(null);
   const twitterRef = useRef(null);
   const aboutRef = useRef(null);
+  const leetcodeRef = useRef(null);
+  const linkedinRef = useRef(null);
 
-  const sections = [
+  // Memoize sections so the array identity is stable between renders
+  const sections = useMemo(() => [
     { ref: profileRef, name: 'profile', duration: 2.5 },
     { ref: nameRef, name: 'name', duration: 2.0 },
     { ref: badgeRef, name: 'badge', duration: 1.8 },
     { ref: emailRef, name: 'email', duration: 2.2 },
     { ref: githubRef, name: 'github', duration: 1.6 },
     { ref: twitterRef, name: 'twitter', duration: 1.6 },
+    { ref: leetcodeRef, name: 'leetcode', duration: 1.6 },
+    { ref: linkedinRef, name: 'linkedin', duration: 1.6 },
     { ref: aboutRef, name: 'about', duration: 2.8 }
-  ];
+  ], []);
 
   // Check for mobile screen
+  // Use matchMedia for efficient mobile detection and listen to changes
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    if (typeof window === 'undefined') return;
+    const mql = window.matchMedia('(max-width: 767px)');
+    const handle = (e) => setIsMobile(e.matches);
+    setIsMobile(mql.matches);
+    // modern addEventListener, fallback to addListener
+    if (mql.addEventListener) mql.addEventListener('change', handle);
+    else mql.addListener(handle);
+    return () => {
+      if (mql.removeEventListener) mql.removeEventListener('change', handle);
+      else mql.removeListener(handle);
     };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Animation loop
+  // Animation loop (uses memoized sections). Keep same timing logic but
+  // depend on sections.length so it remains stable.
   useEffect(() => {
-  const nextSection = () => {
-    setActiveSection(prev => (prev + 1) % sections.length);
-  };
+    const nextSection = () => {
+      setActiveSection(prev => (prev + 1) % sections.length);
+    };
 
-  const timer = setTimeout(nextSection, sections[activeSection].duration * 1000);
+    const duration = (sections[activeSection] && sections[activeSection].duration) || 2;
+    const timer = setTimeout(nextSection, duration * 1000);
 
-  return () => clearTimeout(timer);
-}, [activeSection]);
+    return () => clearTimeout(timer);
+  }, [activeSection, sections.length]);
 
 
-  // Get element position relative to card
-const getElementPosition = (elementRef) => {
-  if (!elementRef.current || !cardRef.current) return { x: 0, y: 0, width: 0, height: 0 };
-  
-  const cardRect = cardRef.current.getBoundingClientRect();
-  const elementRect = elementRef.current.getBoundingClientRect();
-  
-  return {
-    x: elementRect.left - cardRect.left,
-    y: elementRect.top - cardRect.top,
-    width: elementRect.width || 100,   // fallback width
-    height: elementRect.height || 50,  // fallback height
-  };
-};
+    // Measure element position relative to card with layout effect and RAF to avoid layout thrash
+    const [spotlightPosition, setSpotlightPosition] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
-  const currentSection = sections[activeSection];
-  const spotlightPosition = getElementPosition(currentSection.ref);
+    const measure = useCallback((elementRef) => {
+      if (!elementRef?.current || !cardRef.current) return { x: 0, y: 0, width: 0, height: 0 };
+      const cardRect = cardRef.current.getBoundingClientRect();
+      const elementRect = elementRef.current.getBoundingClientRect();
+      return {
+        x: elementRect.left - cardRect.left,
+        y: elementRect.top - cardRect.top,
+        width: elementRect.width || 100,
+        height: elementRect.height || 50,
+      };
+    }, []);
+
+    const currentSection = sections[activeSection];
+
+    // UseLayoutEffect so measurement happens before paint to avoid visible flicker
+    useLayoutEffect(() => {
+      if (!currentSection?.ref) return;
+      let rafId;
+      const update = () => {
+        const pos = measure(currentSection.ref);
+        setSpotlightPosition(pos);
+      };
+      // measure once immediately
+      update();
+
+      // Keep measurements updated on resize with requestAnimationFrame to batch reads
+      const onResize = () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(update);
+      };
+      window.addEventListener('resize', onResize);
+      return () => {
+        window.removeEventListener('resize', onResize);
+        if (rafId) cancelAnimationFrame(rafId);
+      };
+    }, [activeSection, measure, currentSection]);
 
   return (
     <div className="flex bg-[#] items-center justify-center min-h-screen p-4 ">
@@ -85,9 +120,9 @@ const getElementPosition = (elementRef) => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="relative w-full max-w-4xl mx-auto bg-[#181818] backdrop-blur-xl border border-white-500/20 rounded-3xl p-8  overflow-hidden shadow-2xl"
+        className="relative w-full max-w-4xl mx-auto bg-[#181818] backdrop-blur-xl border border-white rounded-3xl p-8  overflow-hidden shadow-2xl"
       >
-        <div className="fixed top-8 right-10 text-white sm:block"> <Timelocal></Timelocal></div>
+        <div className=" block fixed top-8 right-10 text-white "> <Timelocal></Timelocal></div>
         {/* Animated Spotlight/Scanner */}
         <motion.div
           key={activeSection}
@@ -165,7 +200,7 @@ const getElementPosition = (elementRef) => {
             transition={{ duration: 0.3 }}
             className="flex-shrink-0"
           >
-            <div  className="relative w-32 h-32 rounded-2xl overflow-hidden ring-2 ring-cyan-500/30 bg-gradient-to-br from-cyan-500/20 to-purple-500/20">
+            <div  className="relative w-32 h-32 rounded-2xl overflow-hidden ring-2 ring-white bg-black">
 
               
 
@@ -196,14 +231,14 @@ const getElementPosition = (elementRef) => {
               <motion.div
                 ref={badgeRef}
                 whileHover={{ scale: 1.05 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/40 backdrop-blur-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black border border-white backdrop-blur-sm"
               >
                 <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                   className="w-3 h-3 bg-green-400 rounded-full shadow-lg shadow-green-400/50"
                 />
-                <span className="text-green-300 font-medium text-sm md:text-base">Available</span>
+                <span className="text-white font-bold text-sm md:text-base"> Active </span>
               </motion.div>
             </div>
 
@@ -231,7 +266,7 @@ const getElementPosition = (elementRef) => {
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 href="https://github.com/SHIWA6"
-                className="p-3 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 group"
+                className="p-3 rounded-xl bg-black border border-white hover:border-cyan-500/50 transition-all duration-300 group"
               >
                 <FaGithub className="w-6 h-6 text-slate-300 group-hover:text-cyan-400 transition-colors" />
               </motion.a>
@@ -242,10 +277,33 @@ const getElementPosition = (elementRef) => {
                 whileTap={{ scale: 0.95 }}
                 href="https://x.com/testcricforlife"
                 
-                className="p-3 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 group"
+                className="p-3 rounded-xl bg-black border border-white hover:border-cyan-500/50 transition-all duration-300 group"
               >
                 <FaTwitter className="w-6 h-6 text-slate-300 group-hover:text-cyan-400 transition-colors" />
               </motion.a>
+
+
+              <motion.a
+                 ref={leetcodeRef}
+                 whileHover={{ scale: 1.1, y: -2 }}
+                 whileTap={{ scale: 0.95 }}
+                 href="https://leetcode.com/SHIWA6"
+                 className="p-3 rounded-xl bg-black border border-white hover:border-cyan-500/50 transition-all duration-300 group"
+                  >
+                <SiLeetcode className="w-6 h-6 text-slate-300 group-hover:text-cyan-400 transition-colors" />
+          </motion.a>
+
+                   <motion.a
+  ref={linkedinRef}
+  whileHover={{ scale: 1.1, y: -2 }}
+  whileTap={{ scale: 0.95 }}
+  href="https://www.linkedin.com/in/shiva-pandey-41978a308" 
+  className="p-3 rounded-xl bg-black border border-white hover:border-cyan-500/50 transition-all duration-300 group"
+>
+  <FaLinkedin className="w-6 h-6 text-slate-300 group-hover:text-cyan-400 transition-colors" />
+</motion.a>
+
+
             </div>
           </div>
         </div>
@@ -254,7 +312,7 @@ const getElementPosition = (elementRef) => {
         <motion.div
           ref={aboutRef}
           whileHover={{ scale: 1.01 }}
-          className="mt-8 md:mt-12 p-6 rounded-2xl bg-gradient-to-r from-slate-800/30 to-slate-700/30 border border-slate-600/30 backdrop-blur-sm"
+          className="mt-8 md:mt-12 p-6 rounded-2xl bg-gradient-to-r from-slate-800/30 to-slate-700/30 border border-white backdrop-blur-sm"
         >
           <p className="text-white text-base md:text-lg leading-relaxed text-center md:text-left">
             I build full-stack apps that matter — currently exploring AI/ML and pushing boundaries 
