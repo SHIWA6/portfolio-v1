@@ -1,11 +1,11 @@
 .main{
-    background-color: black;
+    background-color: #181818;
 }
 .header{
     position: relative;
     display: flex;
     z-index: 1;
-    background-color: black;
+    background-color: #181818;
     top: 0;
     margin-top: 0;
     color: white;
@@ -21,7 +21,7 @@
         display: flex;
         z-index: 1;
         bottom: 0;
-        color: black;
+        color: #181818;
         background-color: aliceblue;
         justify-content: space-between;
         width: 100%;
@@ -93,9 +93,9 @@
         align-items: center;
         font-weight: 500;
         padding: 6px 16px;
-        background-color: black;
-        border-radius: 50px;
-        outline: 0.005px solid rgb(109, 94, 94);
+        background-color: bl;
+        border-radius: 15px;
+        outline: 1px solid white;
         .el{
             color: white;
             display: flex;

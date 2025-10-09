@@ -40,12 +40,12 @@ export default function Home() {
   return (<main className={styles.main}>
 
     
-  <section className=" mt-0 bg-black text-white">
+  <section className=" mt-0 bg-[#181818] text-white">
         
 
   
       <LocalTime></LocalTime>
-      <main className="mb-10 sm:mb-10">
+      <main className="mb-10 sm:mb-10 ">
       <Header ></Header></main>
         <Landing />
    </section>

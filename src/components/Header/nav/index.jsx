@@ -42,7 +42,7 @@ const Link = ({ data, isActive, setSelectedIndicator, children }) => {
 // Curve Component (simplified)
 const Curve = () => {
   return (
-    <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+    <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-[#0d0d0d]">
       <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
         <path 
           className="fill-gray-900" 
