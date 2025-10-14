@@ -1,6 +1,6 @@
 "use client";
 import me from "../Header/reall.jpg"
-import LightRays from "./LightRays";
+
 
 import React, { useState, useEffect, useRef, useMemo, useCallback, useLayoutEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
