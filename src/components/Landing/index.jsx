@@ -315,9 +315,9 @@ const FuturisticIntroCard = () => {
           className="mt-8 md:mt-12 p-6 rounded-2xl bg-gradient-to-r from-slate-800/30 to-slate-700/30 border border-white backdrop-blur-sm"
         >
           <p className="text-white text-base md:text-lg leading-relaxed text-center md:text-left">
-            I build full-stack apps that matter — currently exploring AI/ML and pushing boundaries 
+            I build full-stack apps -- that matter
             with design-first, production-ready projects. Passionate about creating seamless user 
-            experiences and innovative solutions.
+            experiences and innovative solutions, A problem solver, Critical thinker and I'm also preparing for GATE2027, Let's connect. 
           </p>
         </motion.div>
        
