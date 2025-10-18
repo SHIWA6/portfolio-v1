@@ -1,5 +1,6 @@
 "use client";
 import me from "../Header/reall.jpg"
+import { GlowingEffect } from '../ui/glowing-effect';
 
 
 import React, { useState, useEffect, useRef, useMemo, useCallback, useLayoutEffect } from 'react';
@@ -122,6 +123,7 @@ const FuturisticIntroCard = () => {
         transition={{ duration: 1, ease: "easeOut" }}
         className="relative w-full max-w-4xl mx-auto bg-[#181818] backdrop-blur-xl border border-white rounded-3xl p-8  overflow-hidden shadow-2xl"
       >
+      
         <div className=" block fixed top-8 right-10 text-white "> <Timelocal></Timelocal></div>
         {/* Animated Spotlight/Scanner */}
         <motion.div
@@ -141,10 +143,10 @@ const FuturisticIntroCard = () => {
             scale: { duration: 0.6 },
             opacity: { duration: 0.4 }
           }}
-          className="absolute pointer-events-none z-10 rounded-2xl border-2 border-cyan-400/60 bg-gradient-to-r from-cyan-400/5 via-blue-400/10 to-purple-400/5 shadow-lg"
+          className="absolute pointer-events-none z-10 rounded-2xl border-2 border-slate-500 bg-gradient-to-r from-cyan-400/5 via-blue-400/10 to-purple-400/5 shadow-lg"
           style={{
             boxShadow: `
-              0 0 30px rgba(34, 211, 238, 0.4),
+              0 0 30px rgba(, 211, 238, 0.4),
               inset 0 0 30px rgba(34, 211, 238, 0.1),
               0 0 60px rgba(139, 92, 246, 0.2)
             `
@@ -299,8 +301,10 @@ const FuturisticIntroCard = () => {
   whileTap={{ scale: 0.95 }}
   href="https://www.linkedin.com/in/shiva-pandey-41978a308" 
   className="p-3 rounded-xl bg-black border border-white hover:border-cyan-500/50 transition-all duration-300 group"
->
+> <div>
+   
   <FaLinkedin className="w-6 h-6 text-slate-300 group-hover:text-cyan-400 transition-colors" />
+  </div>
 </motion.a>
 
 
@@ -312,8 +316,15 @@ const FuturisticIntroCard = () => {
         <motion.div
           ref={aboutRef}
           whileHover={{ scale: 1.01 }}
-          className="mt-8 md:mt-12 p-6 rounded-2xl bg-gradient-to-r from-slate-800/30 to-slate-700/30 border border-white backdrop-blur-sm"
-        >
+          className="mt-8 md:mt-12 p-6 rounded-[1.25rem] bg-gradient-to-r from-slate-800/30 to-slate-700/30  border-[2px] border-border border-black backdrop-blur-sm"
+        > <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+          borderWidth={4}
+        />
           <p className="text-white text-base md:text-lg leading-relaxed text-center md:text-left">
             I build full-stack apps -- that matter
             with design-first, production-ready projects. Passionate about creating seamless user 

@@ -8,6 +8,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Rounded from "../../common/RoundedButton";
 import Magnetic from "../../common/Magnetic";
+import { GlowingEffect } from "../ui/glowing-effect";
 
 export default function Index() {
   const header = useRef(null);
@@ -46,6 +47,8 @@ export default function Index() {
 
   return (
     <div className={styles.main}>
+      
+
       <div ref={header} className={styles.header}>
         <div className={styles.logo}></div>
         <div className={styles.nav}>
