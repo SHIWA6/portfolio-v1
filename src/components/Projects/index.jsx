@@ -8,7 +8,13 @@ import Image from "next/image";
 import Rounded from "../../common/RoundedButton";
 import Script from "next/script";
 
-const projects = [
+const projects = [{
+ title: "PulseTalk",
+ src: "/images/screenshot 2025-09-28 150550.png"
+ , color: "8C8C8C",
+ link: "https://pulse-talk-l9dd.vercel.app",
+ techStack: [NextJs, Tailwindcss, NodeJs, ExpressJs, Prisma, Redis, PostgreSQL, PostHoG]
+},
  { title: "EDGE-AI",
   description: "A voice assistant powered by AI, created with NEXT.js and the Gemini API, offering 98% precision in speech recognition and a response time of only 1.5 seconds."
   , src: "/images/Screenshot 2025-09-28 150550.png",
@@ -25,7 +31,6 @@ const projects = [
     link: "https://gamble-gains-nine.vercel.app/",
     techStack: ["React.js", "Tailwind css"],
   },
-
     {
      title: "Portfolio",
      description:
