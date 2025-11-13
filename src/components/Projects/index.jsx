@@ -8,17 +8,18 @@ import Image from "next/image";
 import Rounded from "../../common/RoundedButton";
 import Script from "next/script";
 
-const projects = [{
- title: "PulseTalk",
- src: "/images/screenshot 2025-09-28 150550.png"
- , color: "8C8C8C",
- link: "https://pulse-talk-l9dd.vercel.app",
- techStack: [NextJs, Tailwindcss, NodeJs, ExpressJs, Prisma, Redis, PostgreSQL, PostHoG]
-},
- { title: "EDGE-AI",
+const projects = [
+ { title: "PULSETALK",
+  description: "A full-stack blazing-fast real-time chat app powered by Next.js, Node.js, Prisma, Redis, and Socket.io, featuring analytics, auth, and sleek UI magic."
+  , src: "/images/pulsetalk.png",
+  color: "#000000",
+  link: "https://pulse-talk-l9dd.vercel.app/",
+  techStack: ["NextJs, TailwindCss, TypeScript, ExpressJS, Socket.io, Redis, PostrgreSQL, PostHog"]
+
+ }, { title: "EDGE-AI",
   description: "A voice assistant powered by AI, created with NEXT.js and the Gemini API, offering 98% precision in speech recognition and a response time of only 1.5 seconds."
   , src: "/images/Screenshot 2025-09-28 150550.png",
-  color: "#8C8C8C",
+  color: "#000000",
   link: "https://edge-ai-rho.vercel.app/",
   techStack: ["NextJs, TailwindCss, NodeJS, ExpressJS, GeminiAPI"]
 
@@ -27,7 +28,7 @@ const projects = [{
     description:
       "A feature-rich React.js and Tailwind CSS application focused on delivering interactive game mechanics like Mines etc,"
    , src: "/images/image.png",
-    color: "#8C8C8C",
+    color: "#000000",
     link: "https://gamble-gains-nine.vercel.app/",
     techStack: ["React.js", "Tailwind css"],
   },
@@ -36,7 +37,7 @@ const projects = [{
      description:
        "A modern, interactive portfolio website showcasing projects with dynamic animations and responsive design.",
      src: "/images/PORTFOLIO_WEB.png",
-     color: "#EFE8D3",
+     color: "#000000",
      link: "https://portfolio-v1-dusky-beta.vercel.app/",
     techStack: [ "NextJS, TailwindCss"],
    },
@@ -46,7 +47,7 @@ const projects = [{
     title: "CHEF-CLAUDE",
     description: "A sleek, interactive AI-based cooking assistant built with React and Vite. Chef Claude lets users input ingredients and generates customized recipe suggestions using LLMs like ClaudeAPI or Hugging Face models.",
     src:"/images/CHEF.png",
-    color:"#8C8C8C",
+    color:"#000000",
     link: "https://github.com/SHIWA6/CHEF_CLAUDE_10-06-2025"
     , techStack: ["React.js", "Claude AI"]
   }
@@ -183,7 +184,7 @@ export default function Home() {
                   style={{ backgroundColor: color }}
                   key={`modal_${index}`}
                 >
-                  <Image src={`${src}`} width={300} height={0} alt="image" />
+                  <Image src={`${src}`} width={380} height={0} alt="image" />
                 </div>
               );
             })}
