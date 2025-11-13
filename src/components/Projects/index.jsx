@@ -10,7 +10,7 @@ import Script from "next/script";
 
 const projects = [
  { title: "PULSETALK",
-  description: "A full-stack blazing-fast real-time chat app powered by Next.js, Node.js, Prisma, Redis, and Socket.io, featuring analytics, auth, and sleek UI magic."
+  description: "A full-stack blazing-fast real-time chat app powered by Next.js, Node.js, Prisma, Redis, and Socket.io, featuring analytics, auth, and sleek UI magic. ⚡"
   , src: "/images/pulsetalk.png",
   color: "#000000",
   link: "https://pulse-talk-l9dd.vercel.app/",
