@@ -32,7 +32,6 @@ const projects = [
     link: "https://gamble-gains-nine.vercel.app/",
     techStack: ["React.js", "Tailwind css"],
   },
-
     {
      title: "Portfolio",
      description:
