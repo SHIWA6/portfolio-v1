@@ -9,10 +9,30 @@ import Rounded from "../../common/RoundedButton";
 import Script from "next/script";
 
 const projects = [
- { title: "PULSETALK",
-  description: "A full-stack blazing-fast real-time chat app powered by Next.js, Node.js, Prisma, Redis, and Socket.io, featuring analytics, auth, and sleek UI magic. ⚡"
+ { title: "AIVORA-DESK",
+  description: "A hybrid automation platform leveraging Next.js, Node.js, Python, Selenium, REST APIs, and ChromeDriver to deliver scalable, secure, anti-detection X automation with real-time monitoring, job scheduling, and distributed execution."
+  , src: "/images/aivora-desk-img.png",
+  color: "#f5f5f5",
+  link: "https://github.com/SHIWA6/Aivora-Desk",
+  techStack: [
+  "Next.js",
+  "Node.js",
+  "TypeScript",
+  "TailwindCSS",
+  "Python",
+  "Selenium",
+  "ChromeDriver",
+  "REST API",
+  "WebSockets",
+  "Pandas",
+  "OpenPyXL",
+  
+]
+
+ },{ title: "PULSETALK",
+  description: "A full-stack blazing-fast real-time chat app powered by Next.js, Node.js, Prisma, Redis, and Socket.io, featuring analytics, auth, and sleek UI magic."
   , src: "/images/pulsetalk.png",
-  color: "#000000",
+  color: "#f6f6f6",
   link: "https://pulse-talk-l9dd.vercel.app/",
   techStack: ["NextJs, TailwindCss, TypeScript, ExpressJS, Socket.io, Redis, PostrgreSQL, PostHog"]
 

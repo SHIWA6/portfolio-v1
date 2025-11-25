@@ -23,5 +23,5 @@
   // 📚 Improve focus
   "editor.acceptSuggestionOnEnter": "on",
   "editor.parameterHints.enabled": true,
-  "editor.hover.enabled": true
+  "editor.hover.enabled": "on"
 }
