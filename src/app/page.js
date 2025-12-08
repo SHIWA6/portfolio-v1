@@ -13,7 +13,7 @@ import SlidingImages from "../components/SlidingImages";
 import Contact from "../components/Contact";
 import Header from "../components/Header"
 import LocalTime from "@/utils/Localtimes";
-import LightRays from "../components/Landing/LightRays";
+
 
 export default function Home() {
   const [isLoading, setIsloading] = useState(true);
