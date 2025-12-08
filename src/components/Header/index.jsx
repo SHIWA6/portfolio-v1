@@ -6,7 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import Nav from "./nav";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Rounded from "../../common/RoundedButton";
+import Rounded from "../../common/Roundedbutton";
 import Magnetic from "../../common/Magnetic";
 import { GlowingEffect } from "../ui/glowing-effect";
 

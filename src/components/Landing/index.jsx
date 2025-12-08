@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Timelocal from "@/utils/Timelocal";
 import { SiLeetcode } from "react-icons/si";
@@ -9,27 +9,13 @@ import {FaLinkedin} from "react-icons/fa6";
 import{FaGithub} from "react-icons/fa6";
 import {FaTwitter} from "react-icons/fa6";
 import {FaEnvelope} from "react-icons/fa6";
+import styles from "./style.module.scss"
 
 
 
-
-// 1. Extract the Spotlight to a standalone component to keep the main tree clean
-// Using layoutId lets Framer handle the position interpolation automatically
-const Spotlight = () => {
-  return (
-    <motion.div
-      layoutId="active-spotlight"
-      className="absolute inset-0 -m-3 pointer-events-none z-0 rounded-2xl border-2 bg-black border-red-500"
-     
-      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-    >
-        {/* Scanning line effect - Optimized to use transforms */}
-        
-    </motion.div>
-  );
-};
 
 const FuturisticIntroCard = () => {
+  const isActive = (id) => activeKey === id;
   const [activeKey, setActiveKey] = useState('profile');
   const [isMobile, setIsMobile] = useState(false);
 
@@ -70,19 +56,21 @@ const FuturisticIntroCard = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
+      
       <motion.div
         initial={{ opacity: 1, y: 2 }}
         animate={{ opacity: 1, y: 0 }}
         // 3. Use easeOut and shorter duration for quicker LCP perception
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative w-full max-w-4xl mx-auto bg-[#181818] backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl overflow-hidden"
-      >
+      > 
         <div className="absolute top-8 right-10 text-white z-20">
              <Timelocal />
+             
         </div>
 
         {/* Decorative Corners - Static CSS is cheaper than JS logic */}
-        <div className="absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-white/50 rounded-tl-lg" />
+        <div className="absolute top-4 left-4 w-6 h-6 border-l-2 border-t-2 border-white/50 rounded-tl-lg" > </div>
         <div className="absolute top-4 right-4 w-6 h-6 border-r-2 border-t-2 border-white/50 rounded-tr-lg" />
         <div className="absolute bottom-4 left-4 w-6 h-6 border-l-2 border-b-2 border-white/50 rounded-bl-lg" />
         <div className="absolute bottom-4 right-4 w-6 h-6 border-r-2 border-b-2 border-white/50 rounded-br-lg" />
@@ -90,12 +78,12 @@ const FuturisticIntroCard = () => {
         <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12 relative z-10">
           
           {/* --- Profile Image --- */}
-          <div className="relative group">
-            {activeKey === 'profile' && <Spotlight />}
+          <div className={`relative group ${isActive('profile') ? styles.spotlightTarget : ''}`}>
+           
             <motion.div 
                 whileHover={{ scale: 1.05 }}
                 className="relative w-32 h-32 rounded-2xl overflow-hidden ring-2 ring-white bg-black z-10"
-            >
+            > 
               {/* 4. PRIORITY ADDED for LCP Optimization */}
               <Image 
                 src="/images/reall.webp" 
@@ -112,8 +100,8 @@ const FuturisticIntroCard = () => {
           <div className="flex-1 text-center md:text-left space-y-4">
             {/* --- Name & Badge --- */}
             <div className="space-y-3">
-              <div className="relative inline-block">
-                 {activeKey === 'name' && <Spotlight />}
+              <div className={`relative inline-block ${isActive('name') ? styles.spotlightTarget : ''}`}>
+                 
                  <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight relative z-10">
                     Shiva
                  </h1>
@@ -121,8 +109,8 @@ const FuturisticIntroCard = () => {
               
               <div className="block"></div>
 
-              <div className="relative inline-flex">
-                {activeKey === 'badge' && <Spotlight />}
+              <div className={`relative inline-block ${isActive('badge') ? styles.spotlightTarget : ''}`}>
+                
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   className="relative z-10 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black border border-white backdrop-blur-sm"
@@ -142,8 +130,8 @@ const FuturisticIntroCard = () => {
             </p>
 
             {/* --- Email --- */}
-            <div className="relative inline-block">
-                {activeKey === 'email' && <Spotlight />}
+            <div className={`relative inline-block ${isActive('email') ? styles.spotlightTarget : ''}`}>
+                
                 <motion.div
                 whileHover={{ scale: 1.02 }}
                 className="relative z-10 flex items-center justify-center md:justify-start gap-3 text-slate-300 group cursor-pointer py-1 px-2 rounded-lg"
@@ -186,21 +174,21 @@ const FuturisticIntroCard = () => {
         </div>
 
         {/* --- About Section --- */}
-        <div className="relative mt-8 md:mt-12">
-            {activeKey === 'about' && <Spotlight />}
+        <div className={`relative inline-block mt-8 md:mt-12 ${isActive('name') ? styles.spotlightTarget : ''}`}>
+            
             <motion.div
             whileHover={{ scale: 1.01 }}
             className="relative z-10 p-6 rounded-[1.25rem] bg-slate-800/30 border-2 border-black/50 backdrop-blur-sm"
             >
             {/* Note: Ensure GlowingEffect is optimized internally, or perform conditionally */}
-            <div className="absolute inset-0 overflow-hidden rounded-[1.25rem]">
+            <div className="overflow-hidden rounded-[1.25rem]">
                  <GlowingEffect
                     spread={40}
                     glow={true}
                     disabled={false}
                     proximity={64}
                     inactiveZone={0.01}
-                    borderWidth={4}
+                    borderWidth={2}
                 />
             </div>
             <p className="relative z-20 text-white text-base md:text-lg leading-relaxed text-center md:text-left">
@@ -234,7 +222,7 @@ const FuturisticIntroCard = () => {
 // Sub-component to reduce repetition
 const SocialIcon = ({ id, activeKey, href, icon }) => (
   <div className="relative">
-      {activeKey === id && <Spotlight />}
+      
       <motion.a
         whileHover={{ scale: 1.1, y: -2 }}
         whileTap={{ scale: 0.95 }}

@@ -43,6 +43,7 @@
                 position: relative;
                 width: 80%;
                 height: 80%;
+                aspect-ratio: 3/4;
 
                 @media (max-width: 768px) {
                     width: 100%; // Use full width of project container

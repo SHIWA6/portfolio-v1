@@ -146,4 +146,69 @@
       max-width: 100%;
       height: 60vh;
     }
+    .spotlightTarget {
+  position: relative;
+  z-index: 12;
+
+  /* glow layer */
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 12px;
+    pointer-events: none;
+
+    background: linear-gradient(
+      90deg,
+      rgba(34, 211, 238, 0.06),
+      rgba(99, 102, 241, 0.06)
+    );
+
+    box-shadow:
+      0 8px 30px rgba(34, 211, 238, 0.06),
+      0 12px 40px rgba(99, 102, 241, 0.06);
+
+    opacity: 0;
+    transform: scale(0.95);
+
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s cubic-bezier(.2,.9,.2,1);
+  }
+
+  /* scanline */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.07),
+      transparent
+    );
+
+    opacity: 0;
+    transform: translateX(-120%);
+    transition:
+      transform 1.4s linear,
+      opacity 0.35s ease;
+  }
+}
+
+/* ACTIVE CLASS — THIS TRIGGERS THE ANIMATION */
+.active {
+  &::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  &::before {
+    opacity: 1;
+    transform: translateX(120%);
+  }
+}
+
   }

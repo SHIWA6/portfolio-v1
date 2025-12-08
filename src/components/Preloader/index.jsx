@@ -1,57 +1,96 @@
 "use client";
+
 import styles from "./style.module.scss";
 import { useState, useEffect } from "react";
-import { delay, motion } from 'framer-motion'
-import {opacity, slideUp } from "./anim";
+import { motion } from "framer-motion";
+import { opacity, slideUp } from "./anim";
 
+const words = ["Hello", "Bonjour", "नमस्ते", "Ciao", "Olà", "やあ", "Hallå", "Guten Tag", "Hallo"];
 
+export default function Preloader({ onFinish }) {
+  const [index, setIndex] = useState(0);
+  const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
-const words = [ "Hello", "Bonjur", "नमस्ते", "Ciao", "Olà" , "やあ", "Hallå", "Guten tag", "Hallo"]
+  // Set dimensions (safe + resize listener)
+  useEffect(() => {
+    const updateSize = () => {
+      setDimension({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
 
-export default function Index() {
-    const[index, setIndex] = useState(0);
-    const[dimension, setDimensions] = useState({width:0 , height:0});
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
-    useEffect(()=> {
-        setDimensions({width: window.innerWidth, height:innerHeight})
-    }, [])
+  // Rotate words
+  useEffect(() => {
+    if (index === words.length - 1) return;
 
-    useEffect(()=>{
-        if(index==words.length-1) return;
+    const duration = index === 0 ? 900 : 150;
 
-        setTimeout(()=> {
-            setIndex(index+1)
-        }, index==0 ? 1000 : 150)
-    }, [index])
+    const timer = setTimeout(() => {
+      setIndex((prev) => prev + 1);
+    }, duration);
 
- const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${dimension.width/2} ${dimension.height + 300} 0 ${dimension.height}  L0 0`
-    const targetPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${dimension.width/2} ${dimension.height} 0 ${dimension.height}  L0 0`
+    return () => clearTimeout(timer);
+  }, [index]);
 
+  // Exit callback (tell parent preloader is done)
+  useEffect(() => {
+    if (index === words.length - 1) {
+      // Finish after SVG exit animation completes
+      const timer = setTimeout(() => {
+        onFinish?.(); 
+      }, 700); // match exit animation duration
 
-    const curve = { 
-        initial: {
-            d: initialPath,
-            transition: {duration: 0.7, ease: [0.76,0,0.24,1]}
-        },
-        exit: {
-            d: targetPath,
-            transition:{duration: 0.7, ease:[0.76, 0, 0.24,1], delay:0.3}
-        }
+      return () => clearTimeout(timer);
     }
+  }, [index, onFinish]);
 
-    return(
+  // Curved SVG path
+  const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${
+    dimension.width / 2
+  } ${dimension.height + 300} 0 ${dimension.height} L0 0`;
 
-        <motion.div className={styles.introduction} variants={slideUp} initial="initial" exit="exit">
-{dimension.width>0 && 
+  const exitPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${dimension.height} Q${
+    dimension.width / 2
+  } ${dimension.height} 0 ${dimension.height} L0 0`;
+
+  const curveAnim = {
+    initial: {
+      d: initialPath,
+      transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] },
+    },
+    exit: {
+      d: exitPath,
+      transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.25 },
+    },
+  };
+
+  return (
+    <motion.div
+      className={styles.introduction}
+      variants={slideUp}
+      initial="initial"
+      animate="enter"
+      exit="exit"
+    >
+      {dimension.width > 0 && (
         <>
-                <motion.p variants={opacity} initial="initial" animate="enter"><span></span>{words[index]}</motion.p>
-                <svg>
-                    <motion.path variants={curve} initial="initial" exit="exit"></motion.path>
-                </svg>
-            </>
-}
+          <motion.p variants={opacity} className={styles.word}>
+            <span></span>
+            {words[index]}
+          </motion.p>
 
-        </motion.div>
-    )
-
+          <svg className={styles.svg}>
+            <motion.path variants={curveAnim} />
+          </svg>
+        </>
+      )}
+    </motion.div>
+  );
 }

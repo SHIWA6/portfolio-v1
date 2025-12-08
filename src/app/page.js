@@ -1,9 +1,11 @@
 "use client";
+
+import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import Script from "next/script";
 
 import styles from "./page.module.scss";
-import { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+
 import Preloader from "../components/Preloader";
 import Landing from "../components/Landing";
 import Projects from "../components/Projects";
@@ -11,55 +13,84 @@ import Description from "../components/Description";
 import Skillparallax from "../components/Skill-parallax";
 import SlidingImages from "../components/SlidingImages";
 import Contact from "../components/Contact";
-import Header from "../components/Header"
+import Header from "../components/Header";
 import LocalTime from "@/utils/Localtimes";
 
-
 export default function Home() {
-  const [isLoading, setIsloading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let scroll = null;
+
     (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
+      try {
+        const LocomotiveModule = await import("locomotive-scroll");
+        const LocomotiveScroll = LocomotiveModule.default || LocomotiveModule;
 
-      const scroll = new LocomotiveScroll({
-        el: document.querySelector("[data-scroll-container]"),
-        smooth: true,
-      });
+        const el = document.querySelector("[data-scroll-container]");
 
+        if (el) {
+          scroll = new LocomotiveScroll({
+            el,
+            smooth: true,
+            lerp: 0.08,
+          });
+        }
+      } catch (err) {
+        console.warn("Locomotive failed:", err);
+      }
+
+      // PRELOADER ALWAYS REMOVED (no dependency on locomotive)
       setTimeout(() => {
-        setIsloading(false);
+        setIsLoading(false);
         document.body.style.cursor = "default";
         window.scrollTo(0, 0);
-        // ✅ Removed scroll.update();
-      }, 2000);
+      }, 600);
     })();
+
+    return () => {
+      if (scroll && typeof scroll.destroy === "function") {
+        scroll.destroy();
+      }
+    };
   }, []);
 
+  return (
+    <>
+      {/* LOCO CSS (important) */}
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css"
+      />
 
-  return (<main className={styles.main}>
+      {/* PAGE WRAPPER FOR SMOOTH SCROLL */}
+      <div data-scroll-container>
 
-    
-  <section className=" mt-0 bg-[#181818] text-white">
-        
+        {/* PRELOADER */}
+        <AnimatePresence>
+          {isLoading && <Preloader />}
+        </AnimatePresence>
 
-  
-      <LocalTime></LocalTime>
-      <main className="mb-10 sm:mb-10 ">
-      <Header ></Header></main>
-        <Landing />
-   </section>
-      <AnimatePresence mode="wait">
-        {isLoading && <Preloader />}
-      </AnimatePresence>
-   
-      <Description />
-      <Projects />
-      <Skillparallax />
-      <SlidingImages />
-      <Contact />
-    </main>
+        {/* MAIN PAGE CONTENT */}
+        <div className={styles.main}>
 
-   
+          <section className="mt-0 bg-[#181818] text-white">
+            <LocalTime />
+            <div className="mb-10 sm:mb-10">
+              <Header />
+            </div>
+
+            <Landing />
+          </section>
+
+          <Description />
+          <Projects />
+          <Skillparallax />
+          <SlidingImages />
+          <Contact />
+          
+        </div>
+      </div>
+    </>
   );
 }

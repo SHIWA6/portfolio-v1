@@ -5,13 +5,13 @@ import Project from "./components/project";
 import { color, motion } from "framer-motion";
 import gsap from "gsap";
 import Image from "next/image";
-import Rounded from "../../common/RoundedButton";
+import Rounded from "../../common/Roundedbutton";
 import Script from "next/script";
 
 const projects = [
  { title: "AIVORA-DESK",
   description: "A hybrid automation platform leveraging Next.js, Node.js, Python, Selenium, REST APIs, and ChromeDriver to deliver scalable, secure, anti-detection X automation with real-time monitoring, job scheduling, and distributed execution."
-  , src: "/images/aivora-desk-img.png",
+  , src: "/images/aivora-desk-img.webp",
   color: "#f5f5f5",
   link: "https://github.com/SHIWA6/Aivora-Desk",
   techStack: [
@@ -157,7 +157,7 @@ export default function Home() {
     >
       <Script
         async
-        src="//embed.typeform.com/next/embed.js"
+        src="/embed.typeform.com/next/embed.js"
         strategy="afterInteractive"
       ></Script>
       <h1 className={styles.h1}>Projects</h1>
