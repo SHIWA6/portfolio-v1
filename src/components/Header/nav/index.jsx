@@ -2,8 +2,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
-
-
 // Animation variants for the menu
 export const menuSlide = {
   initial: { x: "100%" },

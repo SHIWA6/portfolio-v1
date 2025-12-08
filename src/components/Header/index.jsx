@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import Nav from "./nav";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Magnetic from "../../common/Magnetic";
+import Magnetic from "../Contact/Magnetic";
 
 
 export default function Index() {

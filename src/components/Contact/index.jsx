@@ -1,9 +1,9 @@
 import styles from "./style.module.scss";
 import Image from "next/image";
-import RoundedButton from "../../common/Roundedbutton";
+import RoundedButton from "./Roundedbutton";
 import { useRef } from "react";
 import { useScroll, motion, useTransform } from "framer-motion";
-import Magnetic from "../../common/Magnetic";
+import Magnetic from "./Magnetic";
 import { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
 import Script from "next/script";
