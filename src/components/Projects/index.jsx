@@ -5,7 +5,6 @@ import Project from "./components/project";
 import { color, motion } from "framer-motion";
 import gsap from "gsap";
 import Image from "next/image";
-import Rounded from "../../common/Roundedbutton";
 import Script from "next/script";
 
 const projects = [
