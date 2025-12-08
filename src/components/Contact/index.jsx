@@ -1,6 +1,6 @@
 import styles from "./style.module.scss";
 import Image from "next/image";
-import RoundedButton from "../../common/Roundedbutton";
+import RoundedButton from "../../common/Roundedbutton/index.jsx";
 import { useRef } from "react";
 import { useScroll, motion, useTransform } from "framer-motion";
 import Magnetic from "../../common/Magnetic";
