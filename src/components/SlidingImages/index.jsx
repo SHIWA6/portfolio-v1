@@ -6,39 +6,39 @@ import Image from "next/image";
 const slider1 = [
   {
     color: "#e3e5e7",
-    src: "/images/1.jpg",
+    src: '/images/1.webp',
   },
   
   {
     color: "#e3e3e3",
-    src: "/images/Screenshot 2025-08-28 012809.png",
+    src: "/images/Screenshot 2025-08-28 012809.webp",
   },
   {
     color: "#21242b",
-    src: "/images/Screenshot 2025-08-28 012715.png",
+    src: "/images/Screenshot 2025-08-28 012715.webp",
   },
 ];
 
 const slider2 = [
   {
     color: "#d7d4cf",
-    src: "/images/CHEF.png",
+    src: "/images/CHEF.webp",
   },
   {
     color: "#e5e0e1",
-    src: "/images/image.png",
+    src: "/images/image.webp",
   },
   {
     color: "#d4e3ec",
-    src: "/images/Screenshot 2025-08-28 012742.png",
+    src: "/images/Screenshot 2025-08-28 012742.webp",
   },
   {
     color: "#e1dad6",
-    src: "/images/2.jpg",
+    src: "/images/2.webp",
   },
   {
     color: "#e1dad6",
-    src: "/images/Screenshot 2025-09-28 150550.png"
+    src: "/images/Screenshot 2025-09-28 150550.webp"
   }
 ];
 
