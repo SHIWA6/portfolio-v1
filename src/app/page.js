@@ -17,6 +17,7 @@ import Header from "../components/Header";
 import LocalTime from "@/utils/Localtimes";
 
 export default function Home() {
+  // ✅ ALWAYS initialize with true for consistent SSR/CSR hydration
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -58,11 +59,7 @@ export default function Home() {
   return (
     <>
       {/* LOCO CSS (important) */}
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css"
-      />
-
+      
       {/* PAGE WRAPPER FOR SMOOTH SCROLL */}
       <div data-scroll-container>
 

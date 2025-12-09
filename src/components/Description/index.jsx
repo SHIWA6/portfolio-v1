@@ -1,24 +1,29 @@
-"use-client";
+"use client";
 import styles from "./style.module.scss";
 import { useInView, motion } from "framer-motion";
-import { useRef, useLayoutEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { slideUp, opacity } from "./animation";
 import Script from "next/script";
-import { useMediaQuery } from "react-responsive";
 
 export default function Index() {
-  const desktopPhrase =
-    "I'm Shiva Pandey, a Btech undergraduate from Munshiganj Institute of Technology, major in Computer Science & Engineering, with a passion for web development and scalable technologies. Proficient in C++, JavaScript, TypeScript, Python, React.js, Next.js, Node.js, and cloud services like AWS and Docker. Always eager to expand my skills and tackle new challenges, I'm actively seeking lucrative opportunities to leverage my tech expertise and drive impactful projects. Whether it's through creating seamless web experiences or exploring the future of decentralized applications"
-     "Im excited to contribute to the tech landscape and grow alongside it."
+  const phrase =
+    "I'm Shiva Pandey, a Btech undergraduate from Munshiganj Institute of Technology, major in Computer Science & Engineering, with a passion for web development and scalable technologies. Proficient in C++, JavaScript, TypeScript, Python, React.js, Next.js, Node.js, and cloud services like AWS and Docker. Always eager to expand my skills and tackle new challenges, I'm actively seeking lucrative opportunities to leverage my tech expertise and drive impactful projects. Whether it's through creating seamless web experiences or exploring the future of decentralized applications "
+     + "Im excited to contribute to the tech landscape and grow alongside it.";
 
-  const mobilePhrase =
-    "I'm Shiva Pandey, a Btech undergraduate from Munshiganj Institute of Technology, major in Computer Science & Engineering, with a passion for web development and scalable technologies. Proficient in C++, JavaScript, TypeScript, Python, React.js, Next.js, Node.js, and cloud services like AWS and Docker. Always eager to expand my skills and tackle new challenges, I'm actively seeking lucrative opportunities to leverage my tech expertise and drive impactful projects. Whether it's through creating seamless web experiences or exploring the future of decentralized applications"
-     "Im excited to contribute to the tech landscape and grow alongside it."
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-  const phrase = isMobile ? mobilePhrase : desktopPhrase;
-
+  // ✅ ALWAYS call hooks in same order - no conditional hooks
   const description = useRef(null);
   const isInView = useInView(description);
+  
+  // ✅ Safe mobile detection without conditional hook
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return ( <> 
     <div ref={description} className={styles.description} id="about">

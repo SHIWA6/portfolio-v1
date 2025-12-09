@@ -5,38 +5,53 @@ import { AnimatePresence } from "framer-motion";
 import Nav from "./nav";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Magnetic from "../Contact/Magnetic";
+import Magnetic from "../../common/Magnetic";
 
 
 export default function Index() {
+  // ✅ ALWAYS declare all hooks at top level in same order
   const header = useRef(null);
-  const [isActive, setIsActive] = useState(false);
   const button = useRef(null);
-
+  const [isActive, setIsActive] = useState(false);
 
   useLayoutEffect(() => {
+    // ✅ Safe DOM access - check if we're in browser
+    if (typeof window === 'undefined' || !button.current) return;
+    
     gsap.registerPlugin(ScrollTrigger);
-    gsap.to(button.current, {
-      scrollTrigger: {
-        trigger: document.documentElement,
-        start: 0,
-        end: window.innerHeight,
-        onLeave: () => {
+    
+    const scrollTriggerConfig = {
+      trigger: document.documentElement,
+      start: 0,
+      end: window.innerHeight,
+      onLeave: () => {
+        if (button.current) {
           gsap.to(button.current, {
             scale: 1,
             duration: 0.25,
             ease: "power1.out",
           });
-        },
-        onEnterBack: () => {
-          gsap.to(
-            button.current,
-            { scale: 0, duration: 0.25, ease: "power1.out" },
-            setIsActive(false)
-          );
-        },
+        }
       },
-    });
+      onEnterBack: () => {
+        if (button.current) {
+          gsap.to(button.current, {
+            scale: 0,
+            duration: 0.25,
+            ease: "power1.out",
+          });
+          // ✅ Fixed: setIsActive should be called separately, not inside gsap.to
+          setIsActive(false);
+        }
+      },
+    };
+    
+    gsap.to(button.current, { scrollTrigger: scrollTriggerConfig });
+    
+    // ✅ Cleanup ScrollTrigger on unmount
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const handleNavClick = (value) => {

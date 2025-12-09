@@ -8,11 +8,14 @@ import { opacity, slideUp } from "./anim";
 const words = ["Hello", "Bonjour", "नमस्ते", "Ciao", "Olà", "やあ", "Hallå", "Guten Tag", "Hallo"];
 
 export default function Preloader({ onFinish }) {
+  // ✅ ALWAYS call all hooks in same order every render
   const [index, setIndex] = useState(0);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
-  // Set dimensions (safe + resize listener)
+  // ✅ Safe dimension measurement with SSR protection
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const updateSize = () => {
       setDimension({
         width: window.innerWidth,

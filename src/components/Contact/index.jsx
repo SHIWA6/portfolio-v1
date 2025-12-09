@@ -1,10 +1,10 @@
-"use-client";
+"use client";
 import styles from "./style.module.scss";
 import Image from "next/image";
-import RoundedButton from "./Roundedbutton";
+import RoundedButton from "../../common/Roundedbutton";
 import { useRef } from "react";
 import { useScroll, motion, useTransform } from "framer-motion";
-import Magnetic from "./Magnetic";
+import Magnetic from "../../common/Magnetic";
 import { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
 import Script from "next/script";
@@ -102,6 +102,7 @@ export default function Index() {
       <div className={styles.body} id="contact-me">
         <div className={styles.info}>
           <div>
+            
             <span>
               <h3>Version</h3>
               <p>2025 © SHIWA</p>
